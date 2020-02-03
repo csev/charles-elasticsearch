@@ -13,11 +13,11 @@ class Elasticsearch(object):
 
         bp = Blueprint(*args, **kargs)
 
-        @bp.route('/')
+        @bp.route('/elasticsearch/')
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
-        @bp.route('/<path:path>')
+        @bp.route('/elasticsearch/<path:path>')
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
@@ -25,7 +25,7 @@ class Elasticsearch(object):
 
     @classmethod
     async def handler(cls, request, path=''):
-        uri = f'http://192.168.99.100:9200{path.lstrip("elasticsearch")}'
+        uri = f'http://192.168.99.100:9200/{path}'
         async with aiohttp.ClientSession() as session:
             async with session.request(request.method, uri) as response:
                 return json(await response.json())
