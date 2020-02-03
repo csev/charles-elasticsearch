@@ -25,7 +25,7 @@ class Elasticsearch(object):
 
     @classmethod
     async def handler(cls, request, path=''):
-        uri = f'http://192.168.99.100:9200{request.path.lstrip("/v1/elasticsearch")}'
+        uri = f'http://192.168.99.100:9200{path.lstrip("elasticsearch")}'
         async with aiohttp.ClientSession() as session:
             async with session.request(request.method, uri) as response:
                 return json(await response.json())
