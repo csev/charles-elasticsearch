@@ -6,11 +6,12 @@ from sanic.response import json, text
 
 from fire_api import webtoken, scope
 
+from . authentication import basicauth
+
 
 class Elasticsearch(object):
 
     __host__ = os.getenv('FIRE_ELASTICSEARCH_URI', 'http://localhost:9200')
-
     __methods__ = [ 'OPTIONS', 'HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE' ]
 
     @classmethod
@@ -30,20 +31,17 @@ class Elasticsearch(object):
         bp = Blueprint(*args, **kargs)
 
         @bp.route('/elasticsearch/', methods=cls.__methods__)
-        @webtoken
-        @scope({ 'elasticsearch.administrator': True })
+        @basicauth
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>', methods=cls.__methods__)
-        @webtoken
-        @scope({ 'elasticsearch.administrator': True, 'elasticsearch.index': '$index' })
+        @basicauth
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>/<path:path>', methods=cls.__methods__)
-        @webtoken
-        @scope({ 'elasticsearch.administrator': True, 'elasticsearch.index': '$index' })
+        @basicauth
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
@@ -51,9 +49,9 @@ class Elasticsearch(object):
 
     @classmethod
     async def handler(cls, request, index='', path='', token=None):
-        uri = f'{cls.__host__}/{index}/{path}'
+        uri = f'{cls.__host__}/{index}/{path}' # Elasticsearch collapses // to /
         async with aiohttp.ClientSession() as session:
-            async with session.request(request.method, uri) as response:
+            async with session.request(request.method, uri, data=request.body) as response:
                 try:
                     return json(await response.json())
                 except aiohttp.ContentTypeError:
