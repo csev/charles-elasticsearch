@@ -12,7 +12,7 @@ class Access(PostgresDBModel, TimestampMixin):
 
 
 def access(handler):
-    async def decorater(request, *args, **kargs):
+    async def decorator(request, *args, **kargs):
         index = kargs.get('index', 'administrator')
         model = await Access.find_one({ 'WHERE': f'data->>\'username\' = \'{index}\'' })
         if not model:
