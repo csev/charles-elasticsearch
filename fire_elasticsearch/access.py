@@ -1,3 +1,4 @@
+import os
 from ujson import loads
 from datetime import datetime
 
@@ -6,6 +7,11 @@ from fire_api import TimestampMixin
 
 
 class AccessStatus(PostgresDBModel, TimestampMixin):
+
+    __connection__ = {
+        'host': os.getenv('CHARLES_POSTGRES_HOST', 'localhost')
+    }
+
     created = Field(type='timestamp', computed=lambda: datetime.now(), computed_empty=True, computed_type=True)
     accessed = Field(type='timestamp', computed=lambda: datetime.now(), computed_type=True)
     request = Field(type=dict)
