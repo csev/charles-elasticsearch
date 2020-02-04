@@ -82,14 +82,14 @@ def auth(handler):
                 'status': 403
             }, status=403)
 
-        if username == 'administrator':
-            return await handler(request, *args, **kargs)
-
         if not checkpw(username, password, __secret__):
             return json({
                 'error': 'Invalid username or password.',
                 'status': 403
             }, status=403)
+
+        if username == 'administrator':
+            return await handler(request, *args, **kargs)
 
         if not username == index:
             return json({
