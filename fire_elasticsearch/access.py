@@ -9,7 +9,8 @@ from fire_api import TimestampMixin
 class AccessStatus(PostgresDBModel, TimestampMixin):
 
     __connection__ = {
-        'host': os.getenv('CHARLES_POSTGRES_HOST', 'localhost')
+        'host': os.getenv('CHARLES_POSTGRES_HOST', 'localhost'),
+        'port': os.getenv('CHARLES_POSTGRES_POST', '5432')
     }
 
     created = Field(type='timestamp', computed=lambda: datetime.now(), computed_empty=True, computed_type=True)
