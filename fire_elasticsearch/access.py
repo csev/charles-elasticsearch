@@ -5,12 +5,12 @@ from fire_odm import PostgresDBModel, Field
 from fire_api import TimestampMixin
 
 
-class Access(PostgresDBModel, TimestampMixin):
+class AccessStatus(PostgresDBModel, TimestampMixin):
     created = Field(type='timestamp', computed=lambda: datetime.now(), computed_empty=True, computed_type=True)
     accessed = Field(type='timestamp', computed=lambda: datetime.now(), computed_type=True)
-    username = Field(required=True)
     request = Field(type=dict)
     response = Field(type=dict)
+    index = Field(required=True)
 
 
 def access(handler):
@@ -18,9 +18,9 @@ def access(handler):
         index = kargs.get('index')
         if not index:
             return await handler(request, *args, **kargs)
-        model = await Access.find_one({ 'WHERE': f'data->>\'username\' = \'{index}\'' })
+        model = await AccessStatus.find_one({ 'WHERE': f'data->>\'index\' = \'{index}\'' })
         if not model:
-            model = Access({ 'username': index })
+            model = AccessStatus({ 'index': index })
         if request.body:
             model.request = loads(request.body)
         response = await handler(request, *args, **kargs)

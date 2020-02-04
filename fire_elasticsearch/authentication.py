@@ -66,7 +66,7 @@ def checkpw(user, pw, secret) :
     # user_2005_asecret
     return sig.startswith(pieces[1])
 
-def basic(handler):
+def auth(handler):
     async def decorator(request, *args, **kargs):
         index = kargs.get('index')
 
