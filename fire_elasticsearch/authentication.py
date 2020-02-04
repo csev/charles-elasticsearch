@@ -1,10 +1,11 @@
+import os
 from uuid import uuid4
 
 from sanic.response import json
 
 from basicauth import decode
 
-__secret__ = str(uuid4())
+__secret__ = os.getenv('SHARED_SECRET', str(uuid4()))
 
 def getexpire(date) :
 
@@ -91,7 +92,7 @@ def basic(handler):
                 'status': 403
             }, status=403)
 
-        if username == index:
+        if not username == index:
             return json({
                 'error': 'You do not have permission to access this index.',
                 'status': 403
