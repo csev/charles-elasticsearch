@@ -50,8 +50,13 @@ class Elasticsearch(object):
     @classmethod
     async def handler(cls, request, index='', path='', token=None):
         uri = f'{cls.__host__}/{index}/{path}' # Elasticsearch collapses // to /
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+        print(uri)
         async with aiohttp.ClientSession() as session:
-            async with session.request(request.method, uri, data=request.body) as response:
+            async with session.request(request.method, uri, data=request.body, headers=headers) as response:
                 try:
                     return json(await response.json())
                 except aiohttp.ContentTypeError:

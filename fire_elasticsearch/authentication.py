@@ -1,7 +1,11 @@
+from sanic.response import json
+
 from basicauth import decode
 
 def basicauth(handler):
-    async def decorator(request, *args, index=None, **kargs):
+    async def decorator(request, *args, **kargs):
+        index = kargs.get('index')
+
         if not request.token:
             return json({
                 'error': 'Invalid username or password.',
