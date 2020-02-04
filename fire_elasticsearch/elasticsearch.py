@@ -6,6 +6,7 @@ from sanic.response import json, text
 
 from fire_api import webtoken, scope
 
+from . access import access
 from . authentication import basic
 
 
@@ -32,16 +33,19 @@ class Elasticsearch(object):
 
         @bp.route('/elasticsearch/', methods=cls.__methods__)
         @basic
+        @access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>', methods=cls.__methods__)
         @basic
+        @access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>/<path:path>', methods=cls.__methods__)
         @basic
+        @access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
