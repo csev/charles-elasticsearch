@@ -1,5 +1,6 @@
-import os
+import os, hashlib
 from uuid import uuid4
+from datetime import datetime
 
 from sanic.response import json
 
