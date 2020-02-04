@@ -6,7 +6,7 @@ from sanic.response import json, text
 
 from fire_api import webtoken, scope
 
-from . authentication import basicauth
+from . authentication import basic
 
 
 class Elasticsearch(object):
@@ -31,17 +31,17 @@ class Elasticsearch(object):
         bp = Blueprint(*args, **kargs)
 
         @bp.route('/elasticsearch/', methods=cls.__methods__)
-        @basicauth
+        @basic
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>', methods=cls.__methods__)
-        @basicauth
+        @basic
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>/<path:path>', methods=cls.__methods__)
-        @basicauth
+        @basic
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
@@ -54,7 +54,6 @@ class Elasticsearch(object):
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-        print(uri)
         async with aiohttp.ClientSession() as session:
             async with session.request(request.method, uri, data=request.body, headers=headers) as response:
                 try:

@@ -2,7 +2,7 @@ from sanic.response import json
 
 from basicauth import decode
 
-def basicauth(handler):
+def basic(handler):
     async def decorator(request, *args, **kargs):
         index = kargs.get('index')
 
