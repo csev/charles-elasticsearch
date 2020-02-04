@@ -6,7 +6,7 @@ from sanic.response import json
 
 from basicauth import decode
 
-__secret__ = os.getenv('SHARED_SECRET', str(uuid4()))
+__secret__ = os.getenv('CHARLES_BASICAUTH_SECRET', str(uuid4()))
 
 def getexpire(date) :
 
