@@ -10,7 +10,9 @@ class AccessStatus(PostgresDBModel, TimestampMixin):
 
     __connection__ = {
         'host': os.getenv('CHARLES_POSTGRES_HOST', 'localhost'),
-        'port': os.getenv('CHARLES_POSTGRES_POST', '5432')
+        'port': os.getenv('CHARLES_POSTGRES_POST', '5432'),
+        'user': os.getenv('CHARLES_POSTGRES_USER'),
+        'password': os.getenv('CHARLES_POSTGRES_PASSWORD')
     }
 
     created = Field(type='timestamp', computed=lambda: datetime.now(), computed_empty=True, computed_type=True)
