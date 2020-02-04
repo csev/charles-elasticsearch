@@ -12,7 +12,7 @@ from . authentication import auth
 
 class Elasticsearch(object):
 
-    __host__ = os.getenv('FIRE_ELASTICSEARCH_URI', 'http://localhost:9200')
+    __host__ = os.getenv('CHARLES_ELASTICSEARCH_URI', 'http://localhost:9200')
     __methods__ = [ 'OPTIONS', 'HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE' ]
 
     @classmethod
