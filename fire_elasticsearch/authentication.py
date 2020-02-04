@@ -29,7 +29,6 @@ def makepw(user, secret):
 
     # user_2005_asecret
     base = index + '_' + secret
-    print('BASE', base)
 
     m = hashlib.sha256()
     m.update(base.encode())
@@ -57,7 +56,6 @@ def checkpw(user, pw, secret) :
 
     # user_2005_asecret
     base = user + '_' + str(check) + '_' + secret
-    print('BASE', base)
 
     m = hashlib.sha256()
     m.update(base.encode())
