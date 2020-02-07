@@ -14,6 +14,7 @@ setup(
     description='An Elasticsearch proxy for Sanic.',
     install_requires=[
         'fire_asynctest@git+https://github.com/sugarush/fire-asynctest@master',
-        'aiohttp'
+        'aiohttp',
+        'basicauth'
     ]
 )
