@@ -1,1 +1,2 @@
-from . elasticsearch import Elasticsearch, AccessStatus
+from . elasticsearch import Elasticsearch
+from . access import AccessStatus
