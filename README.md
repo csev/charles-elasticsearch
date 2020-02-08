@@ -14,7 +14,7 @@
 `CHARLES_POSTGRES_PASSWORD`
 - The Postgres password used to connect to *CHARLES_POSTGRES_HOST*.
 
-`CHARLES_BASICAUTH_SECRET`
+`CHARLES_AUTH_SECRET`
 - The secret used to generate HTTP passwords.
 
 `CHARLES_ELASTICSEARCH_URI`

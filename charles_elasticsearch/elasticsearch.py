@@ -4,7 +4,7 @@ import aiohttp
 from sanic import Blueprint
 from sanic.response import json, text
 
-from fire_api import webtoken, scope
+from sugar_api import webtoken, scope
 
 from . access import access
 from . authentication import auth
