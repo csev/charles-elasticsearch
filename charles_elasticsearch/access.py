@@ -3,10 +3,10 @@ from ujson import loads
 from datetime import datetime
 
 from sugar_odm import PostgresDBModel, Field
-from sugar_api import TimestampMixin
+from sugar_api import JSONAPIMixin, TimestampMixin
 
 
-class AccessStatus(PostgresDBModel, TimestampMixin):
+class AccessStatus(PostgresDBModel, JSONAPIMixin, TimestampMixin):
 
     __connection__ = {
         'host': os.getenv('CHARLES_POSTGRES_HOST', 'localhost'),
