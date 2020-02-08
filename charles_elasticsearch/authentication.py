@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sanic.response import json
 
-from basicauth import decode
+from basicauth import decode, DecodeError
 
 from charles_auth import checkpw
 
