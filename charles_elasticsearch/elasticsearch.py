@@ -33,19 +33,19 @@ class Elasticsearch(object):
 
         @bp.route('/elasticsearch/', methods=cls.__methods__)
         @auth
-        @access
+        #@access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>', methods=cls.__methods__)
         @auth
-        @access
+        #@access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
         @bp.route('/elasticsearch/<index>/<path:path>', methods=cls.__methods__)
         @auth
-        @access
+        #@access
         async def handler(*args, **kargs):
             return await cls.handler(*args, **kargs)
 
