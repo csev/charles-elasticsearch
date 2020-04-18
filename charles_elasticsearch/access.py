@@ -15,6 +15,10 @@ class AccessStatus(PostgresDBModel, JSONAPIMixin, TimestampMixin):
         'password': os.getenv('CHARLES_POSTGRES_PASSWORD')
     }
 
+    __database__ = {
+        'name': os.getenv('CHARLES_POSTGRES_DATABASE')
+    }
+
     created = Field(type='timestamp', computed=lambda: datetime.now(), computed_empty=True, computed_type=True)
     accessed = Field(type='timestamp', computed=lambda: datetime.now(), computed_type=True)
     request = Field(type=dict)
@@ -27,7 +31,7 @@ def access(handler):
         index = kargs.get('index')
         if not index:
             return await handler(request, *args, **kargs)
-        model = await AccessStatus.find_one({ 'WHERE': f'data->>\'index\' = \'{index}\'' })
+        model = await AccessStatus.find_one({ 'index': index })
         if not model:
             model = AccessStatus({ 'index': index })
         if request.body:
