@@ -1,4 +1,4 @@
-git+https://github.com/sugarush/fire-asynctest@master
+git+https://github.com/sugarush/sugar-asynctest@master
 
 aiohttp
 basicauth
